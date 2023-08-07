@@ -47,7 +47,7 @@ COPY ./script/golang.sh ./script/golang.sh
 RUN . ./script/golang.sh
 
 # Install Code Server Extension
-# COPY ./script/code-server-extension.sh ./script/code-server-extension.sh
-# RUN . ./script/code-server-extension.sh
+COPY ./script/code-server-extension.sh ./script/code-server-extension.sh
+RUN . ./script/code-server-extension.sh
 
 ENTRYPOINT ["tini","--","/script/init.sh"]
