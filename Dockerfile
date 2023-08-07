@@ -2,7 +2,12 @@ FROM codercom/code-server:latest as cs
 
 FROM ubuntu:22.04
 
+ARG USERNAME=beyond
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
 ENV GO_VERSION=1.20.3
+ENV PIP_ROOT_USER_ACTION=ignore
 
 # install code-server
 COPY --from=cs /usr/bin/code-server /usr/bin/code-server
@@ -51,3 +56,5 @@ COPY ./script/code-server-extension.sh ./script/code-server-extension.sh
 RUN . ./script/code-server-extension.sh
 
 ENTRYPOINT ["tini","--","/script/init.sh"]
+
+WORKDIR /mnt
