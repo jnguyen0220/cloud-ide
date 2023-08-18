@@ -57,6 +57,14 @@ RUN . ./script/code-server-extension.sh
 
 COPY ./html  /usr/share/nginx/html
 
+ENV USER_NAME=beyond
+ENV GROUP_NAME=beyond
+ENV HOME_DIR=/home/$USER_NAME
+
+RUN groupadd -g 1000 $GROUP_NAME && useradd -rm -d $HOME_DIR -s /bin/bash -g $GROUP_NAME -G sudo -u 1000 $USER_NAME
+RUN echo "${USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 ENTRYPOINT ["tini","--","/script/init.sh"]
 
-WORKDIR /mnt
+USER $USER_NAME
+WORKDIR $HOME_DIR
