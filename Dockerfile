@@ -18,9 +18,7 @@ RUN ln -s /usr/local/lib/code-server/code-server /usr/local/bin/code-server
 # Install Rust, Python, Vim, Git
 RUN apt-get update && apt-get install -y --no-install-recommends \
     sudo \
-    tini \
     gpg \
-    apt-transport-https \
     openssh-client \
     apt-transport-https \ 
     ca-certificates \

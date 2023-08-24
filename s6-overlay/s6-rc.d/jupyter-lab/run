@@ -1,2 +1,2 @@
 #!/command/execlineb -P
-jupyter lab --LabApp.base_url=jl --ip 0.0.0.0 --allow-root --LabApp.token="" --LabApp.password=""
+jupyter lab --LabApp.base_url=jl --ip 0.0.0.0 --allow-root --LabApp.token="" --LabApp.password="" --LabApp.open_browser="False"
