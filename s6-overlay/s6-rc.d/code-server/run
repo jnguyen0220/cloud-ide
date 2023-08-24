@@ -1,2 +1,0 @@
-#!/command/execlineb -P
-code-server --host 0.0.0.0 --auth none --port 8080

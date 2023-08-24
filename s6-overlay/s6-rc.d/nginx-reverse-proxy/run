@@ -1,2 +1,0 @@
-#!/command/execlineb -P
-sudo nginx -g "daemon off;"
