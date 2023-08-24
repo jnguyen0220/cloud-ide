@@ -7,6 +7,7 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 ENV GO_VERSION=1.20.3
+ENV S6_OVERLAY_VERSION="3.1.5.0"
 ENV PIP_ROOT_USER_ACTION=ignore
 
 # install code-server
@@ -48,6 +49,14 @@ RUN chmod +x /script/init.sh
 # Copy reverse_proxy.conf
 COPY ./reverse_proxy.conf /etc/nginx/sites-available/default
 
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
+RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
+
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp
+RUN tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz
+
+COPY --chmod=755 ./s6-overlay /etc/s6-overlay
+
 # Install golang
 COPY ./script/golang.sh ./script/golang.sh
 RUN . ./script/golang.sh
@@ -68,7 +77,7 @@ RUN echo "${USER_NAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 COPY ./script/copy-vs-code-extension.sh ./script/copy-vs-code-extension.sh
 RUN . ./script/copy-vs-code-extension.sh
 
-ENTRYPOINT ["tini","--","/script/init.sh"]
+ENTRYPOINT ["/init"]
 
 USER $USER_NAME
 WORKDIR $HOME_DIR

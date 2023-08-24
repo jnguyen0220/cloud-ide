@@ -12,7 +12,7 @@ cat << EOF >> ${CODE_SERVER_PATH}/User/settings.json
     "go.formatTool": "goimports"
 }
 EOF
-sudo cp -rf /root/.local/share/code-server/extensions $CODE_SERVER_PATH
+sudo mv -rf /root/.local/share/code-server/extensions $CODE_SERVER_PATH
 sudo chown -R $USER_NAME:$GROUP_NAME $HOME_DIR
 sudo chmod 750 $HOME_DIR
 fi
